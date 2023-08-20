@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getRequest } from '../../utils/request';
 import './address.css';
 
-const Address = () => {
+const Address = ({ onCoordinatesChange }) => {
     const [ad, setAd] = useState("");
     const [features, setFeatures] = useState([]);
 
@@ -19,16 +19,25 @@ const Address = () => {
         if (ad.length > 3) {
             const url = new URL('https://api-adresse.data.gouv.fr/search/');
             url.searchParams.set("q", ad);
+
             getRequest(url)
                 .then(json => {
                     json.features;
+
+                    const coordX = json.features.length > 0
+                        ? json.features[0].geometry.coordinates[0]
+                        : 48.858370;
+
+                    const coordY = json.features.length > 0
+                        ? json.features[0].geometry.coordinates[1]
+                        : 2.294481;
+                        
+                    onCoordinatesChange(coordX, coordY);
+
                     setFeatures((json.features))
                 })
         }
-    }, [ad]);
-
-    let coordX = features.length > 0 ? features[0].geometry.coordinates[0] : "";
-    let coordY = features.length > 0 ? features[0].geometry.coordinates[1] : "";
+    }, [ad, onCoordinatesChange]);
 
     return (
         <main className='address'>
@@ -51,12 +60,6 @@ const Address = () => {
                         })
                     }
                 </datalist>
-
-                <div className='coords'>
-                    <p>lat = {coordX}</p>
-                    <p>long = {coordY}</p>
-                </div>
-                
             </section>
         </main>
     )

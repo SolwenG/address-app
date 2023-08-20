@@ -9,18 +9,22 @@ function SetViewOnClick({ coord }) {
 }
 
 const Map = ({ coord }) => {
-
+    
+    console.log(coord)
     return (
-        <MapContainer className="map" zoom={20} scrollWheelZoom={false} center={coord}>
-            
-            <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            
-            <Marker position={coord}></Marker>
+        <div className="map">
+            <MapContainer center={coord} zoom={20} scrollWheelZoom={false}>
 
-            <SetViewOnClick coord={coord} />
-        </MapContainer>
-    )
-}
+                <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+
+                <Marker position={coord}></Marker>
+
+                <SetViewOnClick coord={coord} />
+            </MapContainer>
+        </div>
+    );
+};
+
 
 export default Map;

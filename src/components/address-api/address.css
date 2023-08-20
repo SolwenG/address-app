@@ -26,18 +26,10 @@
 }
 
 .address section {
-    margin: 20px;
+    margin: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.address section .coords {
-    margin-left: 10px;
-    color: var(--color-brown);
-    font-weight: bold;
-    padding: 10px;
-    border: 2px dashed var(--color-lightbrown);
 }
 
 .address input {
